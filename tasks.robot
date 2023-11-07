@@ -18,7 +18,6 @@ Submit Order for Groceries
     Add Items to Shopping List
     Acknowledge Terms
     Submit Order
-    Log    message
 
 *** Keywords ***
 Download Shopping List
