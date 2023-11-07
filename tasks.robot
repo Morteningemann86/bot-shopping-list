@@ -15,7 +15,10 @@ ${PATH_DOWNLOAD_FILE}    ${OUTPUT DIR}${/}downloads${/}shopping-list.csv
 Submit Order for Groceries
     Open Available Browser    ${URL}    maximized=True
     Download Shopping List
-    # Add Items to Shopping List
+    Add Items to Shopping List
+    Acknowledge Terms
+    Submit Order
+    Log    message
 
 *** Keywords ***
 Download Shopping List
@@ -24,4 +27,17 @@ Download Shopping List
 
 Add Items to Shopping List
     ${table_shopping_list}    Read table from CSV    ${PATH_DOWNLOAD_FILE}    header=True
-    
+    FOR    ${element}    IN    @{table_shopping_list}
+        Log To Console    Added food item to cart: ${element}[Favorite Food]
+        Input Text    xpath://*[@id="myInput"]    ${element}[Favorite Food]
+        Click Element When Clickable    xpath://*[@id="add_button"]
+    END
+    Log To Console    All items have been added
+
+Acknowledge Terms
+    Click Element When Clickable    xpath://*[@id="agreeToTermsYes"]
+    Log To Console    Accepted terms
+
+Submit Order
+    Click Element When Clickable    xpath://*[@id="submit_button"]
+    Log To Console    Submitted order
